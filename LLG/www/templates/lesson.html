@@ -1,0 +1,18 @@
+<ion-view view-title="{{lesson.type}}">
+  <ion-content style="text-align: center" class="padding">
+    <p>ID: {{lesson.id}}</p>
+    <p><b>{{lesson.task}}</b></p>
+    <p>"{{lesson.question}}"</p>
+    <ul class="list" ng-repeat="answer in lesson.answers">
+      <li class="item item-checkbox">
+        {{answer}}
+        <label class="checkbox">
+          <input type="checkbox">
+        </label>
+      </li>
+    </ul>
+    <button class="button button-block" ui-sref="">
+      Next
+    </button>
+  </ion-content>
+</ion-view>
