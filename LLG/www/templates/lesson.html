@@ -3,13 +3,20 @@
     <p>ID: {{lesson.id}}</p>
     <p><b>{{lesson.task}}</b></p>
     <p>"{{lesson.question}}"</p>
-    <ul class="list" ng-repeat="answer in lesson.answers">
+    <ul class="list" ng-if="lesson.type === 'Translation'" ng-repeat="answer in lesson.answers">
+
       <li class="item item-checkbox">
         {{answer}}
         <label class="checkbox">
           <input type="checkbox">
         </label>
       </li>
+    </ul>
+    <ul class="list" ng-if="lesson.type === 'GapText'" ng-repeat="question in lesson.question">
+      <p>{{question}}</p>
+      <select name="answer{{question}}" size="{{lesson.answer.size}}">
+        <option ng-repeat="answer in lesson.answers">{{answer}}</option>
+      </select>
     </ul>
     <button class="button button-block" ui-sref="">
       Next

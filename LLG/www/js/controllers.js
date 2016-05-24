@@ -32,7 +32,6 @@ angular.module('starter.controllers', [])
   })
 
   .controller('LessonCtrl', function ($scope, $stateParams, Lessons) {
-    //alert($stateParams.lessonId);
     $scope.lessons = Lessons.all();
     $scope.lesson = Lessons.get($stateParams.lessonId);
   });

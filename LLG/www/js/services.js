@@ -32,8 +32,7 @@ angular.module('starter.services', [])
       id: 3,
       type: 'GapText',
       task: 'Please fill in the correct words!',
-      question: 'Ich bin Vegetarier deshalb esse ich kein ____ ! Jedoch ____ ich gerne Milchshakes und zähle somit'  +
-        'nicht zu den Veganern. Am liebsten esse ich ____ oder Obst, da in diesen Lebensmitteln am meisten Vitamine enthalten sind!',
+      question: ['Ich bin Vegetarier deshalb esse ich kein ',' ! Jedoch ', ' ich gerne Milchshakes und zähle somit nicht zu den Veganern. Am liebsten esse ich' , 'oder Obst, da in diesen Lebensmitteln am meisten Vitamine enthalten sind!'],
       answers: ["Fleisch", "trinke", "Gemuese"],
       correctAnswer: ["Fleisch", "trinke", "Gemuese"],
       mediaURL: null //Pfad der Tonquelldatei
