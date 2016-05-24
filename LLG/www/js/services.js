@@ -11,7 +11,7 @@ angular.module('starter.services', [])
       question: 'The horizon is blue!',
       answers: ["Der Horizont ist blau!", "Das Wasser ist gruen!", "Das Fell glaenzt!", "Heute scheint die Sonne!"],
       correctAnswer: 'Der Horizont ist blau!',
-      mediaURL: null
+      mediaURL: null,
     }, {
       id: 1,
       type: 'Listening',
@@ -19,7 +19,7 @@ angular.module('starter.services', [])
       question: null,
       answers: ["Der Horizont ist blau!", "Das Wasser ist gruen!", "Das Fell glaenzt!", "Heute scheint die Sonne!"],
       correctAnswer: 'Der Horizont ist blau!',
-      mediaURL: null //Pfad der Tonquelldatei
+      mediaURL: 'img/lesson1.mp3',//Pfad der Tonquelldatei
     }, {
       id: 2,
       type: 'Visualisation',
@@ -27,15 +27,15 @@ angular.module('starter.services', [])
       question: null,
       answers: ["Hund", "Kleinkind", "Affe", "Fisch"],
       correctAnswer: 'Affe',
-      mediaURL: null //Pfad der Bildquelldatei
+      mediaURL: 'img/affe.jpg', //Pfad der Bildquelldatei
     }, {
       id: 3,
       type: 'GapText',
       task: 'Please fill in the correct words!',
-      question: ['Ich bin Vegetarier deshalb esse ich kein ',' ! Jedoch ', ' ich gerne Milchshakes und zähle somit nicht zu den Veganern. Am liebsten esse ich' , 'oder Obst, da in diesen Lebensmitteln am meisten Vitamine enthalten sind!'],
-      answers: ["Fleisch", "trinke", "Gemuese"],
-      correctAnswer: ["Fleisch", "trinke", "Gemuese"],
-      mediaURL: null //Pfad der Tonquelldatei
+      question: ['Ich bin Vegetarier deshalb esse ich kein ','Jedoch ', ' ich gerne Milchshakes und zähle somit nicht zu den Veganern. Am liebsten esse ich' , 'oder Obst, da in diesen Lebensmitteln am meisten Vitamine enthalten sind!'],
+      answers: ["Fleisch", "trinke", "Gemüse"],
+      correctAnswer: ["Fleisch", "trinke", "Gemüse"],
+      mediaURL: null, //Pfad der Tonquelldatei
     }];
 
     return {
@@ -59,6 +59,5 @@ angular.module('starter.services', [])
         }
         return tempArr;
       },
-
     };
   });
