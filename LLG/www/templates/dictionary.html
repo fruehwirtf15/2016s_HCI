@@ -1,5 +1,55 @@
+
 <ion-view view-title="Dictionary">
 <ion-content class="padding">
-  <p>This is the Dictionary View.</p>
+<p>&nbsp;</p>
+
+<form action="javascript:translate()">
+<div class="list">
+  <label class="item item-input item-select">
+    <div class="input-label">Translate from</div>
+  <select id="langpairFROM" class="item item-input">
+	<option value="ar">العربية</option>
+	<option value="de">Deutsch</option>
+	<option value="en" selected>English</option>
+	<option value="tlh">Klingon</option>
+	<option value="ja">日本語</option>
+	<option value="ru">Русский</option>
+	<option value="th">ไทย</option>
+	<option value="tr">Türkçe</option>
+  </select>
+  </label>
+</div>
+<div class="list">
+  <label class="item item-input item-select">
+    <div class="input-label">Translate to</div>
+  <select id="langpairTO" class="item item-input">
+	<option value="ar">العربية</option>
+	<option value="de" selected>Deutsch</option>
+	<option value="en">English</option>
+	<option value="tlh">Klingon</option>
+	<option value="ja">日本語</option>
+	<option value="ru">Русский</option>
+	<option value="th">ไทย</option>
+	<option value="tr">Türkçe</option>
+  </select>
+  </label>
+</div>
+
+<div class="list">
+  <label class="item item-input">
+	<textarea id="translate_from" placeholder="Enter text to be translated..."></textarea>
+  </label>
+</div>
+  
+<button class="button button-positive" type="submit" ng-click="showme=true">Translate</button>
+</form>
+
+<p>&nbsp;</p>
+
+<div class="row" ng-show="showme">
+  <div class="col" id="inputstr">&nbsp;</div>
+  <div class="col" id="translate_to">&nbsp;</div>
+</div>
+
 </ion-content>
 </ion-view>
