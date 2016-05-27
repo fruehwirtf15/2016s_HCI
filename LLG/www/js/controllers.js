@@ -10,10 +10,7 @@ angular.module('starter.controllers', [])
 
   .controller('MainMenuCtrl', function($scope){
   })
-
-  .controller('BrowseCtrl', function ($scope) {
-  })
-
+  
   .controller('DictionaryCtrl', function ($scope) {
   })
 
