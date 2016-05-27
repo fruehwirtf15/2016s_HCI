@@ -57,6 +57,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       templateUrl: 'templates/search.html',
       controller: 'SearchCtrl'
     })
+	
+	    .state('searchResult', {
+      url: '/searchResult',
+      templateUrl: 'templates/browse.html',
+      controller: 'SearchResultCtrl'
+    })
 
     .state('settings', {
       url: '/settings',

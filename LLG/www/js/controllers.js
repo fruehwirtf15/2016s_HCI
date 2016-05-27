@@ -22,6 +22,18 @@ angular.module('starter.controllers', [])
   })
 
   .controller('SearchCtrl', function ($scope) {
+	 
+  })
+  
+    .controller('SearchCtrl', function ($scope, Lessons) {
+	  
+
+  })
+  
+      .controller('SearchResultCtrl', function ($scope, Lessons) {
+		  $scope.lessons = Lessons.searchItem('choose');
+	  
+
   })
 
   .controller('SettingsCtrl', function ($scope) {

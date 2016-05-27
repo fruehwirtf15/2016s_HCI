@@ -54,12 +54,23 @@ angular.module('starter.services', [])
       getAllOfType: function(lessonType) {
         var tempArr = null;
         for (var i = 0; i < lessons.length; i++) {
-          if (lessons[i].type === lessonType) {
+          if (lessons[i].type === lessonType ) {
             tempArr.add(lessons[i]);
           }
         }
         return tempArr;
       },
+	  searchItem: function(searchString){
+        var tempArr = [];
+		    for (var i = 0; i < lessons.length; i++) {
+				//if ( i === 2) {
+				if (lessons[i].task.indexOf(searchString) !=-1) {
+					tempArr.push(lessons[i]);
+				}
+			}
+        return tempArr
+		  
+	  }
 
     };
   });
