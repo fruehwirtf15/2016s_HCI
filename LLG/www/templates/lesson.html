@@ -2,8 +2,24 @@
   <ion-content style="text-align: center" class="padding">
     <p>ID: {{lesson.id}}</p>
     <p><b>{{lesson.task}}</b></p>
-    <p>"{{lesson.question}}"</p>
-    <ul class="list" ng-repeat="answer in lesson.answers">
+
+    <!--- Draw View for Translation Lessons--->
+    <p ng-if="lesson.type === 'Translation'">{{lesson.question}}</p>
+    <ul class="list" ng-if="lesson.type === 'Translation'" ng-repeat="answer in lesson.answers">
+
+      <ion-list>
+        <ion-item  class="item-checkbox">
+          {{answer}}
+          <label class="checkbox">
+            <input type="checkbox" ng-model="checkbox.checked{{$index}}" ng-click="updateSelection($index)">
+          </label>
+        </ion-item>
+      </ion-list>
+    </ul>
+
+    <!--- Draw View for Listening Lessons--->
+    <button ng-if="lesson.type === 'Listening'" class="button button-block" ng-click="play(lesson.mediaURL)">Play</button>
+    <ul class="list" ng-if="lesson.type === 'Listening'" ng-repeat="answer in lesson.answers">
       <li class="item item-checkbox">
         {{answer}}
         <label class="checkbox">
@@ -11,7 +27,27 @@
         </label>
       </li>
     </ul>
-    <button class="button button-block" ui-sref="">
+
+    <!--- Draw View for Visualisation Lessons--->
+    <img ng-if="lesson.type === 'Visualisation'" src="{{lesson.mediaURL}}" width="90%" style="margin-bottom: 1%">
+    <ul class="list" ng-if="lesson.type === 'Visualisation'" ng-repeat="answer in lesson.answers">
+      <li class="item item-checkbox">
+        {{answer}}
+        <label class="checkbox">
+          <input type="checkbox">
+        </label>
+      </li>
+    </ul>
+
+    <!--- Draw View for GapText Lessons--->
+    <ul class="list" ng-if="lesson.type === 'GapText'" ng-repeat="question in lesson.question">
+      <p>{{question}}</p>
+      <select ng-if="$index !== 3" name="answer{{question}}" size="{{lesson.answer.size}}">
+        <option disabled selected value>- select word -</option>
+        <option ng-repeat="answer in lesson.answers">{{answer}}</option>
+      </select>
+    </ul>
+    <button class="button button-block" href="{{lesson.id+1}}">
       Next
     </button>
   </ion-content>
