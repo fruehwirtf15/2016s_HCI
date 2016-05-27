@@ -10,10 +10,7 @@ angular.module('starter.controllers', [])
 
   .controller('MainMenuCtrl', function($scope){
   })
-
-  .controller('BrowseCtrl', function ($scope) {
-  })
-
+  
   .controller('DictionaryCtrl', function ($scope) {
   })
 
@@ -22,6 +19,18 @@ angular.module('starter.controllers', [])
   })
 
   .controller('SearchCtrl', function ($scope) {
+	 
+  })
+  
+    .controller('SearchCtrl', function ($scope, Lessons) {
+	  
+
+  })
+  
+      .controller('SearchResultCtrl', function ($scope, Lessons) {
+		  $scope.lessons = Lessons.searchItem('choose');
+	  
+
   })
 
   .controller('SettingsCtrl', function ($scope) {
