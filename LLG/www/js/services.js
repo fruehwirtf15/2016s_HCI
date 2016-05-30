@@ -62,11 +62,15 @@ angular.module('starter.services', [])
 
 	  searchItem: function(searchString){
         var tempArr = [];
-		    for (var i = 0; i < lessons.length; i++) {
-				//if ( i === 2) {
+		    for (var i = 0; i < lessons.length; i++) {			
 				if (lessons[i].task.indexOf(searchString) !=-1) {
 					tempArr.push(lessons[i]);
+					continue;
 				}
+				if (lessons[i].type.indexOf(searchString) !=-1) {
+					tempArr.push(lessons[i]);
+					continue;
+				}				
 			}
         return tempArr
 		  

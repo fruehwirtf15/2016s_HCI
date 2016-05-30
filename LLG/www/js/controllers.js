@@ -27,8 +27,9 @@ angular.module('starter.controllers', [])
 
   })
   
-      .controller('SearchResultCtrl', function ($scope, Lessons) {
-		  $scope.lessons = Lessons.searchItem('choose');
+      .controller('SearchResultCtrl', function ($scope, $stateParams,  Lessons) {
+		  //searchString
+		  $scope.lessons = Lessons.searchItem($stateParams.searchString);
 	  
 
   })

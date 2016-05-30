@@ -1,12 +1,22 @@
 <ion-view view-title="Search">
 <ion-content class="padding">
-  <p>This is the Search View. 4 today</p>
+  <p>Enter text here!</p>
+  
       <div class="row">
-
-        <button style="background: white" class="button " ui-sref="searchResult">
-          <img src="img/settings.png" height="100px" width="100px">
-          <b>Settings</b>
+	  <label class="item item-input">
+		<i class="icon ion-search placeholder-icon"></i>
+		<input type="text" placeholder="Search"  ng-model="searchText" onkeypress="if (event.keyCode==13){ document.getElementById('btnSearch').click()};" >
+	</label>
+	  
+		
+        <button id = "btnSearch" style="background: white" class="button " ui-sref="searchResult({searchString:searchText})">
+          <img src="img/search.png" height="20px" width="20px">
+          <b>Go</b>
         </button>
       </div>
+	 
+	
+	  
+	
 </ion-content>
 </ion-view>
