@@ -38,7 +38,8 @@ angular.module('starter.controllers', [])
 
   })
 
-  .controller('StatusCtrl', function ($scope) {
+  .controller('StatusCtrl', function ($scope, Images) {
+	  $scope.image = Images.displayImage();
   })
 
   .controller('LessonCtrl', function ($scope, $stateParams, Lessons) {

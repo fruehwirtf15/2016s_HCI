@@ -37,7 +37,8 @@ angular.module('starter.services', [])
       correctAnswer: ["Fleisch", "trinke", "Gemüse"],
       mediaURL: null, //Pfad der Tonquelldatei
     }];
-
+	
+	
     return {
       all: function() {
         return lessons;
@@ -60,6 +61,7 @@ angular.module('starter.services', [])
         return tempArr;
       },
 
+
 	  searchItem: function(searchString){
         var tempArr = [];
 		    for (var i = 0; i < lessons.length; i++) {			
@@ -78,4 +80,35 @@ angular.module('starter.services', [])
 
 
     };
+  })
+  .service('Images', function() {
+	  var imagesArray = [{
+			id: 0,
+			text: 'good',
+			mediaURL: 'img/feuerwerk01.gif',
+	  },{
+			id: 1,
+			text: 'better',
+			mediaURL: 'img/feuerwerk02.gif',
+	  },{
+			id: 2,
+			text: 'excellent!',
+			mediaURL: 'img/feuerwerk03.gif',
+	  },{
+			id: 4,
+			text: 'You failed :-(',
+			mediaURL: 'img/fail.gif',
+	  }];
+	  
+	  return {
+		  
+		displayImage: function(){
+
+			var num = Math.floor(Math.random() * (imagesArray.length+1));
+			//the second statement display the random image from the imagesArray array in the canvas image using the random number as the subscript value
+			return imagesArray[num];
+
+		},
+	  };
+	  
   });
