@@ -1,53 +1,48 @@
 <ion-view view-title="{{lesson.type}}">
-  <ion-content style="text-align: center" class="padding">
-    <p>ID: {{lesson.id}}</p>
-    <p><b>{{lesson.task}}</b></p>
+  <ion-content style="text-align: left" class="padding">
+    <p class="lesson_headline_style">ID: {{lesson.id}}</p>
+    <p class="lesson_headline_style"><b>{{lesson.task}}</b></p>
 
     <!--- Draw View for Translation Lessons--->
-    <p ng-if="lesson.type === 'Translation'">{{lesson.question}}</p>
-    <ul class="list" ng-if="lesson.type === 'Translation'" ng-repeat="answer in lesson.answers">
-
-      <ion-list>
-        <ion-item  class="item-checkbox">
-          {{answer}}
-          <label class="checkbox">
-            <input type="checkbox" ng-model="checkbox.checked{{$index}}" ng-click="updateSelection($index)">
-          </label>
-        </ion-item>
-      </ion-list>
-    </ul>
+    <p class="lesson_headline_style" ng-if="lesson.type === 'Translation'">{{lesson.question}}</p>
+    <ion-list class="list" ng-if="lesson.type === 'Translation'" ng-repeat="answer in lesson.answers">
+      <ion-radio ng-model="selection.choice" ng-value="answer">
+        {{answer}}
+      </ion-radio>
+     </ion-list>
 
     <!--- Draw View for Listening Lessons--->
     <button ng-if="lesson.type === 'Listening'" class="button button-block" ng-click="play(lesson.mediaURL)">Play</button>
-    <ul class="list" ng-if="lesson.type === 'Listening'" ng-repeat="answer in lesson.answers">
-      <li class="item item-checkbox">
+    <ion-list class="list" ng-if="lesson.type === 'Listening'" ng-repeat="answer in lesson.answers">
+      <ion-radio ng-model="selection.choice" ng-value="answer">
         {{answer}}
-        <label class="checkbox">
-          <input type="checkbox">
-        </label>
-      </li>
-    </ul>
+      </ion-radio>
+     </ion-list>
+
 
     <!--- Draw View for Visualisation Lessons--->
     <img ng-if="lesson.type === 'Visualisation'" src="{{lesson.mediaURL}}" width="90%" style="margin-bottom: 1%">
-    <ul class="list" ng-if="lesson.type === 'Visualisation'" ng-repeat="answer in lesson.answers">
-      <li class="item item-checkbox">
+    <ion-list class="list" ng-if="lesson.type === 'Visualisation'" ng-repeat="answer in lesson.answers">
+      <ion-radio ng-model="selection.choice" ng-value="answer">
         {{answer}}
-        <label class="checkbox">
-          <input type="checkbox">
-        </label>
-      </li>
-    </ul>
+      </ion-radio>
+     </ion-list>
 
     <!--- Draw View for GapText Lessons--->
     <ul class="list" ng-if="lesson.type === 'GapText'" ng-repeat="question in lesson.question">
-      <p>{{question}}</p>
-      <select ng-if="$index !== 3" name="answer{{question}}" size="{{lesson.answer.size}}">
-        <option disabled selected value>- select word -</option>
-        <option ng-repeat="answer in lesson.answers">{{answer}}</option>
-      </select>
+      <p class="lesson_headline_style">{{question}}</p>
+      <!--- <label ng-if="$index !== 3" class="item item-select">
+        <select ng-model="selectionGT" ng-change="getValue($index, selectionGT)">
+          <option ng-repeat="answer in lesson.answers">{{answer}}</option>
+        </select>
+      </label>--->
+      <div ng-if="$index !== 3" class="item item-select">
+        <select ng-model="selGT" ng-change="getValue($index, selGT)" ng-options="answer for answer in lesson.answers">
+          <option disabled value="">Select Option</option>
+        </select>
+      </div>
     </ul>
-    <button class="button button-block" href="{{lesson.id+1}}">
+    <button class="button button-block" ng-click="checkAnswer(lesson.id)">
       Next
     </button>
   </ion-content>

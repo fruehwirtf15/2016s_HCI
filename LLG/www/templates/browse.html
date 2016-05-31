@@ -4,7 +4,7 @@
       <ion-item ng-if="!lessons">
         <ion-spinner></ion-spinner>
       </ion-item>
-    <ion-item ng-repeat="lesson in lessons" type="item-text-wrap" href="#/{{lesson.id}}">
+    <ion-item ng-repeat="lesson in lessons" type="item-text-wrap" href="#/lesson/{{lesson.id}}">
       <h2><b>ID: </b>{{lesson.id}}</h2>
       <h2><b> Type: </b>{{lesson.type}}</h2>
     </ion-item>

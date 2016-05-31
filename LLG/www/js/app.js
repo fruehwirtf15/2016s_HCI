@@ -77,7 +77,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
 
     .state('lesson', {
-      url: '/:lessonId',
+      url: '/lesson/:lessonId',
       templateUrl: 'templates/lesson.html',
       controller: 'LessonCtrl'
     });

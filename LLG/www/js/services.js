@@ -9,7 +9,7 @@ angular.module('starter.services', [])
       type: 'Translation',
       task: 'Please choose correct translation',
       question: 'The horizon is blue!',
-      answers: ["Der Horizont ist blau!", "Das Wasser ist gruen!", "Das Fell glaenzt!", "Heute scheint die Sonne!"],
+      answers: ["Der Horizont ist blau!", "Das Wasser ist grün!", "Das Fell glänzt!", "Heute scheint die Sonne!"],
       correctAnswer: 'Der Horizont ist blau!',
       mediaURL: null,
     }, {
@@ -17,7 +17,7 @@ angular.module('starter.services', [])
       type: 'Listening',
       task: 'Please choose correct option',
       question: null,
-      answers: ["Der Horizont ist blau!", "Das Wasser ist gruen!", "Das Fell glaenzt!", "Heute scheint die Sonne!"],
+      answers: ["Der Horizont ist blau!", "Das Wasser ist grün!", "Das Fell glänzt!", "Heute scheint die Sonne!"],
       correctAnswer: 'Der Horizont ist blau!',
       mediaURL: 'img/lesson1.mp3',//Pfad der Tonquelldatei
     }, {
@@ -37,8 +37,8 @@ angular.module('starter.services', [])
       correctAnswer: ["Fleisch", "trinke", "Gemüse"],
       mediaURL: null, //Pfad der Tonquelldatei
     }];
-	
-	
+
+
     return {
       all: function() {
         return lessons;
@@ -62,9 +62,10 @@ angular.module('starter.services', [])
       },
 
 
+
 	  searchItem: function(searchString){
         var tempArr = [];
-		    for (var i = 0; i < lessons.length; i++) {			
+		    for (var i = 0; i < lessons.length; i++) {
 				if (lessons[i].task.indexOf(searchString) !=-1) {
 					tempArr.push(lessons[i]);
 					continue;
@@ -72,10 +73,10 @@ angular.module('starter.services', [])
 				if (lessons[i].type.indexOf(searchString) !=-1) {
 					tempArr.push(lessons[i]);
 					continue;
-				}				
+				}
 			}
         return tempArr
-		  
+
 	  }
 
 
@@ -99,9 +100,9 @@ angular.module('starter.services', [])
 			text: 'You failed :-(',
 			mediaURL: 'img/fail.gif',
 	  }];
-	  
+
 	  return {
-		  
+
 		displayImage: function(){
 
 			var num = Math.floor(Math.random() * (imagesArray.length+1));
@@ -110,5 +111,5 @@ angular.module('starter.services', [])
 
 		},
 	  };
-	  
+
   });

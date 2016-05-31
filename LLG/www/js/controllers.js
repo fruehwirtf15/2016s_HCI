@@ -10,7 +10,7 @@ angular.module('starter.controllers', [])
 
   .controller('MainMenuCtrl', function($scope){
   })
-  
+
   .controller('DictionaryCtrl', function ($scope) {
   })
 
@@ -19,19 +19,12 @@ angular.module('starter.controllers', [])
   })
 
   .controller('SearchCtrl', function ($scope) {
-	 
-  })
-  
-    .controller('SearchCtrl', function ($scope, Lessons) {
-	  
 
   })
-  
-      .controller('SearchResultCtrl', function ($scope, $stateParams,  Lessons) {
+
+  .controller('SearchResultCtrl', function ($scope, $stateParams,  Lessons) {
 		  //searchString
 		  $scope.lessons = Lessons.searchItem($stateParams.searchString);
-	  
-
   })
 
   .controller('SettingsCtrl', function ($scope) {
@@ -42,9 +35,16 @@ angular.module('starter.controllers', [])
 	  $scope.image = Images.displayImage();
   })
 
-  .controller('LessonCtrl', function ($scope, $stateParams, Lessons) {
+  .controller('LessonCtrl', function ($scope, $stateParams, Lessons, $state, $ionicPopup) {
     $scope.lessons = Lessons.all();
     $scope.lesson = Lessons.get($stateParams.lessonId);
+    $scope.selection = {choice: {}};
+    $scope.selectionGT = {
+      choice0:{},
+      choice1:{},
+      choice2:{}
+    }
+
     $scope.play = function(url) {
       // Play the audio file at url
       var my_media = new Media(url,
@@ -59,20 +59,68 @@ angular.module('starter.controllers', [])
       );
       // Play audio
       my_media.play();
-    };
-
-    $scope.checkbox = {
-      checked0: false,
-      checked1: true,
-      checked2: false,
-      checked3: false,
-
-    };
-
-
-    $scope.updateSelection = function(position) {
-      if(position == 1){
-        alert("Hallo");
+    }
+    $scope.checkAnswer = function (id) {
+      if($scope.lesson.type === 'GapText'){
+        if($scope.selectionGT.choice0 === $scope.lesson.correctAnswer[0] && $scope.selectionGT.choice1 === $scope.lesson.correctAnswer[1] && $scope.selectionGT.choice2 === $scope.lesson.correctAnswer[2]){
+          $scope.showPopupSuccess();
+          $scope.nextLesson(id);
+        }else{
+          $scope.showPopupFail();
+        }
+      }else{
+        if($scope.selection.choice === $scope.lesson.correctAnswer){
+          $scope.showPopupSuccess();
+          $scope.nextLesson(id);
+        }else{
+          $scope.showPopupFail();
+        }
       }
     }
+    $scope.nextLesson = function(id){
+      if((id+1) < $scope.lessons.length){
+        $state.go('lesson', {lessonId: id+1});
+      }else {
+        $state.go('lesson', {lessonId: 0});
+      }
+    }
+    $scope.getValue = function (index, myValue) {
+      if(index === 0){
+        $scope.selectionGT.choice0 = myValue;
+      }else if(index === 1){
+        $scope.selectionGT.choice1 = myValue;
+      }else if(index === 2) {
+        $scope.selectionGT.choice2 = myValue;
+      }
+    }
+    $scope.showPopupSuccess = function() {
+      $scope.data = {}
+
+      // Custom popup
+      var myPopup = $ionicPopup.show({
+        title: "Congratulation!",
+        subTitle: "You did it!",
+        template: '<img width="75px" height="75px" src="img/trueCheck.png">',
+        scope: $scope,
+        cssClass: 'popup_style',
+
+        buttons: [
+          {text: 'Save'}
+        ]
+      });
+    }
+    $scope.showPopupFail = function() {
+      $scope.data = {}
+
+      // Custom popup
+      var myPopup = $ionicPopup.show({
+        title: "Sorry!",
+        subTitle: "That's the wrong answer! Please try again!",
+        template: '<img width="75px" height="75px" src="img/falseCheck.png">',
+        scope: $scope,
+        cssClass: 'popup_style',
+
+        buttons: [{text: 'Cancel'}]
+      });
+    };
   });

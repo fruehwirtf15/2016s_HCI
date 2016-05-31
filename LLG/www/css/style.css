@@ -17,5 +17,13 @@
   border-width: 1px;
   border-color: #F0F0F0;
   background-color: #F0F0F0;
-  
+
+}
+
+.lesson_headline_style{
+  text-align: center;
+}
+
+.popup_style{
+  text-align: center;
 }
