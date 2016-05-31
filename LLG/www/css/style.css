@@ -1,14 +1,28 @@
 /* Empty. Add your own CSS if you like */
 
-.Login{
+.Login {
   margin-top: 35%;
 }
-.Menu{
+.Menu {
   margin-top: 10%;
 }
+.Search {
+  margin-top: 40%;
+  background-color: rgb(215,240,240);
+}
+.Browse {
+  margin-top: 5%;
+
+}
+.h2 {
+
+  background-color: #C3C3C3;
+}
+
 
 .item-input{
-  text-align: left;
+  text-align: right;
+  
 }
 
 .row_dict{
