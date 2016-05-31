@@ -1,22 +1,18 @@
  <div class="Browse">
 <ion-view view-title="Browse">
   <ion-content class="padding">
- 
+
     <ion-list>
       <ion-item ng-if="!lessons">
         <ion-spinner></ion-spinner>
       </ion-item>
-<<<<<<< HEAD
     <ion-item ng-repeat="lesson in lessons" type="item-text-wrap" href="#/lesson/{{lesson.id}}">
-=======
-    <ion-item ng-repeat="lesson in lessons" type="item-text-wrap" href="#/{{lesson.id}}" >
->>>>>>> 7bf07bdf43e9f3b649566077d336464af6514b5e
       <h2><b>ID: </b>{{lesson.id}}</h2>
       <h2><b> Type: </b>{{lesson.type}}</h2>
     </ion-item>
     </ion-list>
 
   </ion-content>
- 
+
 </ion-view>
 </div>
