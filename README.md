@@ -15,12 +15,12 @@ Seebacher Christoph
 
 ### Implementierung
 
-Framework:	[ Cordova - iOS | Cordova - Android]
+Framework:	[ Cordova - iOS ]
 
 API-Version:	[ionic? ]
 
 Geraet(e), auf dem(denen) getestet wurde:
-[??]
+[iPhone 5]
 
 Externe Libraries und Frameworks:
 [ionic]
