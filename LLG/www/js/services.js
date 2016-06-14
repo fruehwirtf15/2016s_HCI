@@ -82,6 +82,18 @@ angular.module('starter.services', [])
 
     };
   })
+    .service('Score', function() {
+		var lessonScore = 75.0;
+		
+		return {
+			getScore: function(){
+				return lessonScore;
+			},
+			setScore: function(theScore){
+				lessonScore = theScore;
+			},
+		};
+	  })	
   .service('Images', function() {
 	  var imagesArray = [{
 			id: 0,
