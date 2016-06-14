@@ -1,6 +1,9 @@
 angular.module('starter.controllers', [])
 
   .controller('LoginCtrl', function($scope, $ionicHistory) {
+    if(window.localStorage.getItem("Score") === "null"){
+      window.localStorage.setItem("Score", 0);
+    }
     $scope.$on('$ionicView.enter', function(){
       $ionicHistory.nextViewOptions({
         disableBack: true
@@ -124,8 +127,14 @@ angular.module('starter.controllers', [])
     }
   })
 
-  .controller('StatusCtrl', function ($scope, Images, Score) {
-	  $scope.image = Images.displayImage(Score.getScore());
+  .controller('StatusCtrl', function ($scope, Images, Lessons) {
+    var lessonArray = Lessons.all();
+    if(window.localStorage.getItem("Score") === null){
+      $scope.score = 0;
+    }else{
+      $scope.score = window.localStorage.getItem("Score");
+    }
+	  $scope.image = Images.displayImage(($scope.score/lessonArray.length));
   })
 
   .controller('LessonCtrl', function ($scope, $stateParams, Lessons, $state, $ionicPopup, $ionicHistory) {
@@ -171,13 +180,16 @@ angular.module('starter.controllers', [])
     }
 
     $scope.saveData = function(id) {
-        $scope.updateScore();
+        if(window.localStorage.getItem(id) === null){
+          $scope.updateScore();
+        }
         window.localStorage.setItem(id, id);
     }
 
     $scope.updateScore = function () {
       if(window.localStorage.getItem("Score") !== null){
-        var temp = window.localStorage.getItem("Score");
+        var temp = parseInt(window.localStorage.getItem("Score"));
+        temp++;
         window.localStorage.setItem("Score", temp);
       }else{
         window.localStorage.setItem("Score", 1);
