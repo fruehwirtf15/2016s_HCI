@@ -36,6 +36,54 @@ angular.module('starter.services', [])
       answers: ["Fleisch", "trinke", "Gemüse"],
       correctAnswer: ["Fleisch", "trinke", "Gemüse"],
       mediaURL: null, //Pfad der Tonquelldatei
+    }, {
+      id: 4,
+      type: 'Translation',
+      task: 'Please choose correct translation',
+      question: 'The Water is green!',
+      answers: ["Der Horizont ist blau!", "Das Wasser ist grün!", "Das Fell glänzt!", "Heute scheint die Sonne!"],
+      correctAnswer: 'Das Wasser ist grün!',
+      mediaURL: null,
+    }, {
+      id: 5,
+      type: 'Listening',
+      task: 'Please choose correct option',
+      question: null,
+      answers: ["Der Horizont ist blau!", "Das Wasser ist grün!", "Das Fell glänzt!", "Heute scheint die Sonne!"],
+      correctAnswer: 'Das Wasser ist grün!',
+      mediaURL: 'img/lesson2.mp3',//Pfad der Tonquelldatei
+    }, {
+      id: 6,
+      type: 'Visualisation',
+      task: 'What\'s the correct translation for the following Visualization?',
+      question: null,
+      answers: ["Hund", "Kleinkind", "Affe", "Fisch"],
+      correctAnswer: 'Hund',
+      mediaURL: 'img/hund.jpg', //Pfad der Bildquelldatei
+    }, {
+      id: 7,
+      type: 'GapText',
+      task: 'Please fill in the correct words!',
+      question: ['Im sehe mir gerne die Fußballspiele im', 'an. Da ich ein Österreicher bin bevorzuge ich die Spiele dieser' , 'Andere Mannschaften' , 'ich mir jedoch auch ganz gerne an!'],
+      answers: ["Fernsehen", "Mannschaft", "sehe"],
+      correctAnswer: ["Fernsehen", "Mannschaft", "sehe"],
+      mediaURL: null, //Pfad der Tonquelldatei
+    }, {
+      id: 8,
+      type: 'Translation',
+      task: 'Please choose correct translation',
+      question: 'Today the Sun is shining!',
+      answers: ["Der Horizont ist blau!", "Das Wasser ist grün!", "Das Fell glänzt!", "Heute scheint die Sonne!"],
+      correctAnswer: 'Heute scheint die Sonne!',
+      mediaURL: null,
+    }, {
+      id: 9,
+      type: 'Translation',
+      task: 'Please choose correct translation',
+      question: 'The Skin shines!',
+      answers: ["Der Horizont ist blau!", "Das Wasser ist grün!", "Das Fell glänzt!", "Heute scheint die Sonne!"],
+      correctAnswer: 'Das Fell glänzt!',
+      mediaURL: null,
     }];
 
 
@@ -81,10 +129,10 @@ angular.module('starter.services', [])
 
 
     };
-  })
+  })/*
     .service('Score', function() {
 		var lessonScore = 15.0;
-		
+
 		return {
 			getScore: function(){
 				return lessonScore;
@@ -93,35 +141,43 @@ angular.module('starter.services', [])
 				lessonScore = theScore;
 			},
 		};
-	  })	
+	  })	*/
   .service('Images', function() {
 	  var imagesArray = [
 	  {
 			id: 0,
-			text: 'You failed :-(',
+			text: 'You failed',
 			mediaURL: 'img/fail.gif',
 	  },{
 			id: 1,
-			text: 'good',
+			text: 'Good',
 			mediaURL: 'img/feuerwerk01.gif',
 	  },{
 			id: 2,
-			text: 'better',
+			text: 'Better',
 			mediaURL: 'img/feuerwerk02.gif',
 	  },{
 			id: 3,
-			text: 'excellent!',
+			text: 'Excellent!',
 			mediaURL: 'img/feuerwerk03.gif',
 	  }];
 
 	  return {
 
 		displayImage: function(scoreValue){
-
+      if(scoreValue <= 0){
+        return imagesArray[0];
+      }else if(scoreValue > 0 && scoreValue <= 0.5){
+        return imagesArray[1];
+      }else if(scoreValue > 0.5 && scoreValue <= 0.75){
+        return imagesArray[2];
+      }else if(scoreValue > 0.75){
+        return imagesArray[3];
+      }
 			//var num = Math.floor(Math.random() * (imagesArray.length+1));
-			var num = Math.floor(scoreValue * 4 / 100);
+			//var num = Math.floor(scoreValue * 4 / 100);
 			//the second statement display the random image from the imagesArray array in the canvas image using the random number as the subscript value
-			return imagesArray[num];
+			//return imagesArray[num];
 
 		},
 	  };

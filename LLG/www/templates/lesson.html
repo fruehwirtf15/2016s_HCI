@@ -21,7 +21,7 @@
 
 
     <!--- Draw View for Visualisation Lessons--->
-    <img ng-if="lesson.type === 'Visualisation'" src="{{lesson.mediaURL}}" width="90%" style="margin-bottom: 1%">
+    <div style="text-align: center;"><img ng-if="lesson.type === 'Visualisation'" src="{{lesson.mediaURL}}" width="90%" style="margin-bottom: 1%"></div>
     <ion-list class="list" ng-if="lesson.type === 'Visualisation'" ng-repeat="answer in lesson.answers">
       <ion-radio ng-model="selection.choice" ng-value="answer">
         {{answer}}

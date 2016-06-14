@@ -1,6 +1,9 @@
 angular.module('starter.controllers', [])
 
   .controller('LoginCtrl', function($scope, $ionicHistory) {
+    if(window.localStorage.getItem("Score") === "null"){
+      window.localStorage.setItem("Score", 0);
+    }
     $scope.$on('$ionicView.enter', function(){
       $ionicHistory.nextViewOptions({
         disableBack: true
@@ -8,7 +11,54 @@ angular.module('starter.controllers', [])
     });
   })
 
-  .controller('MainMenuCtrl', function($scope){
+  .controller('MainMenuCtrl', function($scope, Lessons, $state, $ionicPopup, $ionicHistory){
+    $scope.lessons = Lessons.all();
+
+    $scope.getLastLesson = function () {
+      var lastLesson = window.localStorage.getItem("lastLesson");
+      if(lastLesson === null){
+        window.localStorage.setItem("lastLesson", 0);
+        $state.go('lesson', {lessonId: 0});
+      }else{
+        $scope.goToNextLesson(lastLesson);
+      }
+    }
+    $scope.goToNextLesson = function(id) {
+      var counter = 0;
+
+      while(counter < $scope.lessons.length){
+        if(id < $scope.lessons.length){
+          if(window.localStorage.getItem(id) !== null){
+            id++;
+            counter++;
+          }else{
+            window.localStorage.setItem("lastLesson", id);
+            $state.go('lesson', {lessonId: id});
+            return;
+          }
+        }else{
+          id = 0;
+        }
+      }
+      $scope.showNoMoreLessons();
+    }
+    $scope.showNoMoreLessons = function() {
+      // Custom popup
+      var myPopup = $ionicPopup.show({
+        title: "Sorry!",
+        subTitle: "You did all existing Lessons with Success! To reset your SaveData, please navigate to Settings!",
+        template: '<img width="75px" height="75px" src="img/falseCheck.png">',
+        scope: $scope,
+        cssClass: 'popup_style',
+
+        buttons: [
+          {text: 'Back to Menu',
+            onTap: function () {
+              $state.go('mainMenu');
+            }}
+        ]
+      });
+    }
   })
 
   .controller('DictionaryCtrl', function ($scope) {
@@ -27,15 +77,73 @@ angular.module('starter.controllers', [])
 		  $scope.lessons = Lessons.searchItem($stateParams.searchString);
   })
 
-  .controller('SettingsCtrl', function ($scope) {
+  .controller('SettingsCtrl', function ($scope, $state, $ionicPopup) {
+    $scope.resetData = function () {
+      $scope.showWarning();
+    }
+    $scope.removeData = function (){
+      window.localStorage.clear();
+    }
 
+    $scope.showWarning = function() {
+      // Custom popup
+      var myPopup = $ionicPopup.show({
+        title: "WARNING!",
+        subTitle: "Do you really want to reset all your learning progress?\nThis process could NOT be undone!",
+        template: '<img width="75px" height="75px" src="img/falseCheck.png">',
+        scope: $scope,
+        cssClass: 'popup_style',
+
+        buttons: [
+          {text: 'Cancel',
+            onTap: function () {
+              $state.go("settings");
+            }},
+          {text: 'Reset',
+            onTap: function () {
+              $scope.removeData();
+              $scope.showResetSuccess();
+            }}
+        ]
+      });
+    }
+
+    $scope.showResetSuccess = function() {
+      // Custom popup
+      var myPopup = $ionicPopup.show({
+        title: "Reset Successfully Done",
+        subTitle: "Your learning progress data had been deleted! You can now try again!",
+        template: '<img width="75px" height="75px" src="img/trueCheck.png">',
+        scope: $scope,
+        cssClass: 'popup_style',
+
+        buttons: [
+          {text: 'OK',
+            onTap: function () {
+              $state.go("settings");
+            }}
+        ]
+      });
+    }
   })
 
-  .controller('StatusCtrl', function ($scope, Images, Score) {
-	  $scope.image = Images.displayImage(Score.getScore());
+  .controller('StatusCtrl', function ($scope, Images, Lessons) {
+    var lessonArray = Lessons.all();
+    if(window.localStorage.getItem("Score") === null){
+      $scope.score = 0;
+    }else{
+      $scope.score = window.localStorage.getItem("Score");
+    }
+	  $scope.image = Images.displayImage(($scope.score/lessonArray.length));
   })
 
-  .controller('LessonCtrl', function ($scope, $stateParams, Lessons, $state, $ionicPopup) {
+  .controller('LessonCtrl', function ($scope, $stateParams, Lessons, $state, $ionicPopup, $ionicHistory) {
+    $scope.$on('$ionicView.enter', function(){
+      if($ionicHistory.backTitle() !== "Main Menu"){
+        $ionicHistory.removeBackView();
+      }
+    });
+
     $scope.lessons = Lessons.all();
     $scope.lesson = Lessons.get($stateParams.lessonId);
     $scope.selection = {choice: {}};
@@ -43,6 +151,16 @@ angular.module('starter.controllers', [])
       choice0:{},
       choice1:{},
       choice2:{}
+    }
+
+    $scope.getValue = function (index, myValue) {
+      if(index === 0){
+        $scope.selectionGT.choice0 = myValue;
+      }else if(index === 1){
+        $scope.selectionGT.choice1 = myValue;
+      }else if(index === 2) {
+        $scope.selectionGT.choice2 = myValue;
+      }
     }
 
     $scope.play = function(url) {
@@ -60,42 +178,71 @@ angular.module('starter.controllers', [])
       // Play audio
       my_media.play();
     }
+
+    $scope.saveData = function(id) {
+        if(window.localStorage.getItem(id) === null){
+          $scope.updateScore();
+        }
+        window.localStorage.setItem(id, id);
+    }
+
+    $scope.updateScore = function () {
+      if(window.localStorage.getItem("Score") !== null){
+        var temp = parseInt(window.localStorage.getItem("Score"));
+        temp++;
+        window.localStorage.setItem("Score", temp);
+      }else{
+        window.localStorage.setItem("Score", 1);
+      }
+    }
+
+    $scope.checkLessonDone = function(id) {
+        if(window.localStorage.getItem(id) === null){
+          return false; //return false, if lesson is able to play.
+        }else{
+          return true;  //return true, if lesson successfully was played at this point.
+        }
+    }
+
+    $scope.goToNextLesson = function(id) {
+      var counter = 0;
+
+      while(counter < $scope.lessons.length){
+        if(id < $scope.lessons.length){
+          if($scope.checkLessonDone(id)){
+            id++;
+            counter++;
+          }else{
+            window.localStorage.setItem("lastLesson", id);
+            $state.go('lesson', {lessonId: id});
+            return;
+          }
+        }else{
+          id = 0;
+        }
+      }
+      $scope.showNoMoreLessons();
+    }
+
     $scope.checkAnswer = function (id) {
       if($scope.lesson.type === 'GapText'){
         if($scope.selectionGT.choice0 === $scope.lesson.correctAnswer[0] && $scope.selectionGT.choice1 === $scope.lesson.correctAnswer[1] && $scope.selectionGT.choice2 === $scope.lesson.correctAnswer[2]){
-          $scope.showPopupSuccess();
-          $scope.nextLesson(id);
+          $scope.showPopupSuccess(id);
         }else{
           $scope.showPopupFail();
         }
       }else{
         if($scope.selection.choice === $scope.lesson.correctAnswer){
-          $scope.showPopupSuccess();
-          $scope.nextLesson(id);
+          $scope.showPopupSuccess(id);
         }else{
           $scope.showPopupFail();
         }
       }
     }
-    $scope.nextLesson = function(id){
-      if((id+1) < $scope.lessons.length){
-        $state.go('lesson', {lessonId: id+1});
-      }else {
-        $state.go('lesson', {lessonId: 0});
-      }
-    }
-    $scope.getValue = function (index, myValue) {
-      if(index === 0){
-        $scope.selectionGT.choice0 = myValue;
-      }else if(index === 1){
-        $scope.selectionGT.choice1 = myValue;
-      }else if(index === 2) {
-        $scope.selectionGT.choice2 = myValue;
-      }
-    }
-    $scope.showPopupSuccess = function() {
-      $scope.data = {}
 
+
+    $scope.showPopupSuccess = function(id) {
+      $scope.saveData(id);
       // Custom popup
       var myPopup = $ionicPopup.show({
         title: "Congratulation!",
@@ -105,13 +252,19 @@ angular.module('starter.controllers', [])
         cssClass: 'popup_style',
 
         buttons: [
-          {text: 'Save'}
+          {text: 'Cancel',
+            onTap: function () {
+              $state.go("mainMenu");
+            }},
+          {text: 'Next',
+           onTap: function () {
+             $scope.goToNextLesson(id);
+           }}
         ]
       });
     }
-    $scope.showPopupFail = function() {
-      $scope.data = {}
 
+    $scope.showPopupFail = function() {
       // Custom popup
       var myPopup = $ionicPopup.show({
         title: "Sorry!",
@@ -120,7 +273,28 @@ angular.module('starter.controllers', [])
         scope: $scope,
         cssClass: 'popup_style',
 
-        buttons: [{text: 'Cancel'}]
+        buttons: [{text: 'Try again'}]
+      });
+    }
+
+    $scope.showNoMoreLessons = function() {
+      // Custom popup
+      var myPopup = $ionicPopup.show({
+        title: "Sorry!",
+        subTitle: "You did all existing Lessons with Success! To reset your SaveData, please navigate to Settings!",
+        template: '<img width="75px" height="75px" src="img/falseCheck.png">',
+        scope: $scope,
+        cssClass: 'popup_style',
+
+        buttons: [
+          {text: 'Back to Menu',
+           onTap: function () {
+             $ionicHistory.nextViewOptions({
+               disableBack: true
+             })
+             $state.go('mainMenu');
+           }}
+        ]
       });
     };
   });

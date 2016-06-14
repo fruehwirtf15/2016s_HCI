@@ -23,7 +23,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 })
 
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(function ($ionicConfigProvider, $stateProvider, $urlRouterProvider) {
+
+  // Config for the navigation Button overall the app.
+  var backText = "Back";
+  $ionicConfigProvider.backButton.previousTitleText(false).text(backText).icon('ion-ios-arrow-back');
 
   //noinspection JSAnnotator
   $stateProvider
@@ -57,7 +61,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       templateUrl: 'templates/search.html',
       controller: 'SearchCtrl'
     })
-	
+
 	    .state('searchResult', {
       url: '/searchResult?searchString',
       templateUrl: 'templates/browse.html',
@@ -83,5 +87,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     });
 
   $urlRouterProvider.otherwise('/login');
+
 
 });
