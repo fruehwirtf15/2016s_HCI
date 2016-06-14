@@ -124,8 +124,8 @@ angular.module('starter.controllers', [])
     }
   })
 
-  .controller('StatusCtrl', function ($scope, Images) {
-	  $scope.image = Images.displayImage();
+  .controller('StatusCtrl', function ($scope, Images, Score) {
+	  $scope.image = Images.displayImage(Score.getScore());
   })
 
   .controller('LessonCtrl', function ($scope, $stateParams, Lessons, $state, $ionicPopup, $ionicHistory) {

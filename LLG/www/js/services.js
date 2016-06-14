@@ -82,30 +82,44 @@ angular.module('starter.services', [])
 
     };
   })
+    .service('Score', function() {
+		var lessonScore = 15.0;
+		
+		return {
+			getScore: function(){
+				return lessonScore;
+			},
+			setScore: function(theScore){
+				lessonScore = theScore;
+			},
+		};
+	  })	
   .service('Images', function() {
-	  var imagesArray = [{
+	  var imagesArray = [
+	  {
 			id: 0,
+			text: 'You failed :-(',
+			mediaURL: 'img/fail.gif',
+	  },{
+			id: 1,
 			text: 'good',
 			mediaURL: 'img/feuerwerk01.gif',
 	  },{
-			id: 1,
+			id: 2,
 			text: 'better',
 			mediaURL: 'img/feuerwerk02.gif',
 	  },{
-			id: 2,
+			id: 3,
 			text: 'excellent!',
 			mediaURL: 'img/feuerwerk03.gif',
-	  },{
-			id: 4,
-			text: 'You failed :-(',
-			mediaURL: 'img/fail.gif',
 	  }];
 
 	  return {
 
-		displayImage: function(){
+		displayImage: function(scoreValue){
 
-			var num = Math.floor(Math.random() * (imagesArray.length+1));
+			//var num = Math.floor(Math.random() * (imagesArray.length+1));
+			var num = Math.floor(scoreValue * 4 / 100);
 			//the second statement display the random image from the imagesArray array in the canvas image using the random number as the subscript value
 			return imagesArray[num];
 
